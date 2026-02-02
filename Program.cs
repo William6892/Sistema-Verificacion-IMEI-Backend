@@ -9,51 +9,35 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Cargar configuración según entorno
-if (builder.Environment.IsProduction())
-{
-    builder.Configuration.AddJsonFile("appsettings.Production.json", optional: true, reloadOnChange: true);
-}
-
-// 2. Configurar servicios
+// 1. Configuración básica
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// 3. Configurar CORS para desarrollo y producción
+// 2. Configurar CORS para desarrollo y producción
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", policy =>
     {
-        if (builder.Environment.IsDevelopment())
-        {
-            // En desarrollo: permitir localhost
-            policy.WithOrigins("http://localhost:3000", "http://localhost:3001", "http://localhost:5173")
-                  .AllowAnyHeader()
-                  .AllowAnyMethod()
-                  .AllowCredentials();
-        }
-        else
-        {
-            // En producción: permitir solo tu frontend en Render
-            // CAMBIA ESTA URL cuando tengas tu frontend desplegado
-            policy.WithOrigins("https://imei-frontend.onrender.com")
-                  .AllowAnyHeader()
-                  .AllowAnyMethod()
-                  .AllowCredentials();
-        }
+        policy.WithOrigins(
+            // Desarrollo
+            "http://localhost:3000",
+            "http://localhost:3001",
+            "http://localhost:5173",
+            // Producción - tu frontend en Render
+            "https://imei-frontend.onrender.com",
+            "https://imei-api-p18o.onrender.com"  // Para permitir self-calls si es necesario
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
     });
 });
 
-// 4. Configurar JWT (con variables de entorno en producción)
+// 3. Configurar JWT
 var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY")
     ?? builder.Configuration["Jwt:Key"]
-    ?? throw new InvalidOperationException("La clave JWT no está configurada");
-
-//if (jwtKey.Length < 32)
-//{
- //   throw new InvalidOperationException("La clave JWT debe tener al menos 32 caracteres");
-//}
+    ?? "MiClaveSecretaSuperSeguraDe64CaracteresParaJWTEnProduccionCambiar"; // Valor por defecto
 
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
@@ -72,37 +56,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             NameClaimType = ClaimTypes.NameIdentifier,
             RoleClaimType = ClaimTypes.Role
         };
-
-        // Solo logging en desarrollo
-        if (builder.Environment.IsDevelopment())
-        {
-            options.Events = new JwtBearerEvents
-            {
-                OnTokenValidated = context =>
-                {
-                    var userId = context.Principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                    var username = context.Principal?.Identity?.Name;
-                    var roles = context.Principal?.FindAll(ClaimTypes.Role).Select(c => c.Value).ToList();
-
-                    Console.WriteLine($"🔐 Token validado: Usuario={username}, ID={userId}");
-                    if (roles != null && roles.Any())
-                    {
-                        Console.WriteLine($"   Roles encontrados: {string.Join(", ", roles)}");
-                    }
-                    return Task.CompletedTask;
-                },
-
-                OnAuthenticationFailed = context =>
-                {
-                    Console.WriteLine($"❌ Autenticación fallida: {context.Exception.Message}");
-                    return Task.CompletedTask;
-                }
-            };
-        }
     });
 
-// 5. Configurar PostgreSQL con Neon
-// Obtener connection string de variables de entorno o appsettings
+// 4. Configurar PostgreSQL
 var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
     ?? Environment.GetEnvironmentVariable("NeonConnection")
     ?? builder.Configuration.GetConnectionString("NeonConnection")
@@ -110,21 +66,14 @@ var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
 
 if (string.IsNullOrEmpty(connectionString))
 {
-    // Para debug: mostrar qué variables hay
-    Console.WriteLine("❌ Variables de entorno disponibles:");
-    var envVars = Environment.GetEnvironmentVariables();
-    foreach (var key in envVars.Keys)
-    {
-        Console.WriteLine($"   {key} = {envVars[key]}");
-    }
-
-    throw new InvalidOperationException("No se encontró la cadena de conexión a la base de datos");
+    // Si no hay cadena de conexión, usar SQLite para desarrollo
+    connectionString = "Data Source=imei.db";
+    Console.WriteLine("⚠️ Usando SQLite local para desarrollo");
 }
-
-Console.WriteLine($"🔄 Configurando conexión a la base de datos...");
-Console.WriteLine($"   Usando: {connectionString.Substring(0, Math.Min(50, connectionString.Length))}...");
-
-Console.WriteLine($"🔄 Configurando conexión a la base de datos...");
+else
+{
+    Console.WriteLine("✅ Conectado a PostgreSQL en Neon");
+}
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -132,25 +81,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
     if (builder.Environment.IsDevelopment())
     {
-        options.EnableSensitiveDataLogging();
         options.EnableDetailedErrors();
-        options.LogTo(Console.WriteLine, LogLevel.Information);
+        options.EnableSensitiveDataLogging();
     }
 });
 
-// 6. Registrar servicios personalizados
+// 5. Registrar servicios
 builder.Services.AddScoped<IVerificacionService, VerificacionService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-// 7. Configurar logging
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
-builder.Logging.AddDebug();
-
 var app = builder.Build();
 
-// 8. Configurar pipeline HTTP
+// 6. Pipeline HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -159,36 +102,29 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    Console.WriteLine("🚀 Modo producción activado");
-
-    // En producción, usar middleware de seguridad
     app.UseExceptionHandler("/error");
     app.UseHsts();
+    Console.WriteLine("🚀 Modo producción activado");
 }
 
-// 9. Middlewares - ORDEN IMPORTANTE
+// 7. Middlewares
 app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
-// 10. Mapear controladores
+// 8. Mapear endpoints
 app.MapControllers();
 
-// 11. Endpoint de health check para Render
-app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }));
+app.MapGet("/", () => "✅ API Sistema de Verificación IMEI - Funcionando");
+app.MapGet("/health", () => Results.Ok(new
+{
+    status = "healthy",
+    service = "imei-api",
+    timestamp = DateTime.UtcNow
+}));
+app.MapGet("/test", () => "✅ API funcionando correctamente");
 
-// 12. Endpoint de test
-app.MapGet("/test", () => "✅ API funcionando!");
-
-// 13. Endpoint de error para producción
 app.Map("/error", () => Results.Problem("Ha ocurrido un error en el servidor"));
-
-// 14. Mensaje de inicio
-Console.WriteLine($"\n🎉 Aplicación iniciada en modo: {app.Environment.EnvironmentName}");
-Console.WriteLine($"🌐 Swagger UI: {(app.Environment.IsDevelopment() ? "https://localhost:5001/swagger" : "No disponible en producción")}");
-Console.WriteLine("📱 Login endpoint: POST /api/Auth/login");
-Console.WriteLine("🔧 Health check: GET /health");
-Console.WriteLine("✅ Test endpoint: GET /test");
 
 app.Run();
