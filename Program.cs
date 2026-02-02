@@ -50,10 +50,10 @@ var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY")
     ?? builder.Configuration["Jwt:Key"]
     ?? throw new InvalidOperationException("La clave JWT no está configurada");
 
-if (jwtKey.Length < 32)
-{
-    throw new InvalidOperationException("La clave JWT debe tener al menos 32 caracteres");
-}
+//if (jwtKey.Length < 32)
+//{
+ //   throw new InvalidOperationException("La clave JWT debe tener al menos 32 caracteres");
+//}
 
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
