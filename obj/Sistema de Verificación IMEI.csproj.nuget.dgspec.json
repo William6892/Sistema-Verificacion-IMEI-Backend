@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\willi\\imei-system\\Sistema de Verificación IMEI\\Sistema de Verificación IMEI.csproj": {}
+    "C:\\Users\\willi\\Sistema de Verificación IMEI\\Sistema de Verificación IMEI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\willi\\imei-system\\Sistema de Verificación IMEI\\Sistema de Verificación IMEI.csproj": {
+    "C:\\Users\\willi\\Sistema de Verificación IMEI\\Sistema de Verificación IMEI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\willi\\imei-system\\Sistema de Verificación IMEI\\Sistema de Verificación IMEI.csproj",
+        "projectUniqueName": "C:\\Users\\willi\\Sistema de Verificación IMEI\\Sistema de Verificación IMEI.csproj",
         "projectName": "Sistema de Verificación IMEI",
-        "projectPath": "C:\\Users\\willi\\imei-system\\Sistema de Verificación IMEI\\Sistema de Verificación IMEI.csproj",
+        "projectPath": "C:\\Users\\willi\\Sistema de Verificación IMEI\\Sistema de Verificación IMEI.csproj",
         "packagesPath": "C:\\Users\\willi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\willi\\imei-system\\Sistema de Verificación IMEI\\obj\\",
+        "outputPath": "C:\\Users\\willi\\Sistema de Verificación IMEI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -78,6 +78,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.3, )"
+            },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.22.1, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",

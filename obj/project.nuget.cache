@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bLkLw26mDbE=",
+  "dgSpecHash": "5e7e6NFNJtk=",
   "success": true,
-  "projectFilePath": "C:\\Users\\willi\\imei-system\\Sistema de Verificación IMEI\\Sistema de Verificación IMEI.csproj",
+  "projectFilePath": "C:\\Users\\willi\\Sistema de Verificación IMEI\\Sistema de Verificación IMEI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\willi\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\willi\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
@@ -41,6 +41,7 @@
     "C:\\Users\\willi\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\8.0.1\\microsoft.identitymodel.protocols.openidconnect.8.0.1.nupkg.sha512",
     "C:\\Users\\willi\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.6.1\\microsoft.identitymodel.tokens.8.6.1.nupkg.sha512",
     "C:\\Users\\willi\\.nuget\\packages\\microsoft.openapi\\1.6.22\\microsoft.openapi.1.6.22.nupkg.sha512",
+    "C:\\Users\\willi\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.22.1\\microsoft.visualstudio.azure.containers.tools.targets.1.22.1.nupkg.sha512",
     "C:\\Users\\willi\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
     "C:\\Users\\willi\\.nuget\\packages\\npgsql\\9.0.3\\npgsql.9.0.3.nupkg.sha512",
     "C:\\Users\\willi\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\9.0.4\\npgsql.entityframeworkcore.postgresql.9.0.4.nupkg.sha512",

@@ -1,113 +1,121 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\",
+  "WorkspaceRootPath": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\sistema de verificaci\u00F3n imei.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:sistema de verificaci\u00F3n imei.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\.dockerignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:.dockerignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\render.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:render.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\sistema de verificaci\u00F3n imei.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:sistema de verificaci\u00F3n imei.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\sistema de verificaci\u00F3n imei.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:sistema de verificaci\u00F3n imei.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\controllers\\empresascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\controllers\\empresascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:controllers\\empresascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\controllers\\personascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\controllers\\personascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:controllers\\personascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\dtos\\authdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\dtos\\authdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:dtos\\authdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\dtos\\registrodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\dtos\\registrodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:dtos\\registrodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\models\\dispositivo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\models\\dispositivo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:models\\dispositivo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\controllers\\verificacioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\controllers\\verificacioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:controllers\\verificacioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\models\\persona.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\models\\persona.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:models\\persona.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\services\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\services\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:services\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\models\\empresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\models\\empresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:models\\empresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\services\\iverificacionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\services\\iverificacionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:services\\iverificacionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\services\\verificacionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\services\\verificacionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:services\\verificacionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\dtos\\verificaciondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\dtos\\verificaciondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:dtos\\verificaciondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\imei-system\\sistema de verificaci\u00F3n imei\\helpers\\jwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|c:\\users\\willi\\sistema de verificaci\u00F3n imei\\helpers\\jwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{277C9757-9B85-41D6-98E9-A439C141B688}|Sistema de Verificaci\u00F3n IMEI.csproj|solutionrelative:helpers\\jwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -118,15 +126,54 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": ".dockerignore",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\.dockerignore",
+              "RelativeDocumentMoniker": ".dockerignore",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\.dockerignore",
+              "RelativeToolTip": ".dockerignore",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-02-02T17:40:13.254Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Sistema de Verificaci\u00F3n IMEI.http",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Sistema de Verificaci\u00F3n IMEI.http",
+              "RelativeDocumentMoniker": "Sistema de Verificaci\u00F3n IMEI.http",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Sistema de Verificaci\u00F3n IMEI.http",
+              "RelativeToolTip": "Sistema de Verificaci\u00F3n IMEI.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2026-02-02T17:37:38.421Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Dockerfile",
+              "RelativeDocumentMoniker": "Dockerfile",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Dockerfile",
+              "RelativeToolTip": "Dockerfile",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-02-02T17:36:27.642Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "appsettings.Production.json",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\appsettings.Production.json",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\appsettings.Production.json",
               "RelativeDocumentMoniker": "appsettings.Production.json",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\appsettings.Production.json",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\appsettings.Production.json",
               "RelativeToolTip": "appsettings.Production.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
@@ -135,50 +182,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "render.yml",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\render.yml",
-              "RelativeDocumentMoniker": "render.yml",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\render.yml",
-              "RelativeToolTip": "render.yml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
-              "WhenOpened": "2026-02-02T13:20:16.981Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "appsettings.Development.json",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\appsettings.Development.json",
-              "RelativeDocumentMoniker": "appsettings.Development.json",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\appsettings.Development.json",
-              "RelativeToolTip": "appsettings.Development.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-02-02T13:15:14.382Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "EmpresasController.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\EmpresasController.cs",
-              "RelativeDocumentMoniker": "Controllers\\EmpresasController.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\EmpresasController.cs",
-              "RelativeToolTip": "Controllers\\EmpresasController.cs",
-              "ViewState": "AgIAANAAAAAAAAAAAAAqwOAAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-19T16:10:30.744Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Program.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Program.cs",
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAHoAAAAAAAAAAAAkwLQAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -187,23 +195,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Services\\UserService.cs",
-              "RelativeDocumentMoniker": "Services\\UserService.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Services\\UserService.cs",
-              "RelativeToolTip": "Services\\UserService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-23T16:35:52.811Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "Dispositivo.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Models\\Dispositivo.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Models\\Dispositivo.cs",
               "RelativeDocumentMoniker": "Models\\Dispositivo.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Models\\Dispositivo.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Models\\Dispositivo.cs",
               "RelativeToolTip": "Models\\Dispositivo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -211,11 +207,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Sistema de Verificaci\u00F3n IMEI.csproj",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Sistema de Verificaci\u00F3n IMEI.csproj",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Sistema de Verificaci\u00F3n IMEI.csproj",
               "RelativeDocumentMoniker": "Sistema de Verificaci\u00F3n IMEI.csproj",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Sistema de Verificaci\u00F3n IMEI.csproj",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Sistema de Verificaci\u00F3n IMEI.csproj",
               "RelativeToolTip": "Sistema de Verificaci\u00F3n IMEI.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
@@ -224,11 +220,35 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "Services\\UserService.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Services\\UserService.cs",
+              "RelativeToolTip": "Services\\UserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T16:35:52.811Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 8,
+              "Title": "EmpresasController.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\EmpresasController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EmpresasController.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\EmpresasController.cs",
+              "RelativeToolTip": "Controllers\\EmpresasController.cs",
+              "ViewState": "AgIAANAAAAAAAAAAAAAqwOAAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-19T16:10:30.744Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "AdminController.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\AdminController.cs",
               "RelativeDocumentMoniker": "Controllers\\AdminController.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\AdminController.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\AdminController.cs",
               "RelativeToolTip": "Controllers\\AdminController.cs",
               "ViewState": "AgIAANcBAAAAAAAAAAAAAPQBAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -237,22 +257,22 @@
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "PersonasController.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\PersonasController.cs",
-              "RelativeDocumentMoniker": "Controllers\\PersonasController.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\PersonasController.cs",
-              "RelativeToolTip": "Controllers\\PersonasController.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAWwD0AAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T16:05:53.984Z"
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "appsettings.Development.json",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\appsettings.Development.json",
+              "RelativeToolTip": "appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-02-02T13:15:14.382Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\appsettings.json",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\appsettings.json",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\appsettings.json",
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
@@ -261,11 +281,23 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 9,
+              "Title": "PersonasController.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\PersonasController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PersonasController.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\PersonasController.cs",
+              "RelativeToolTip": "Controllers\\PersonasController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAWwD0AAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T16:05:53.984Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "IUserService.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Services\\IUserService.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Services\\IUserService.cs",
               "RelativeDocumentMoniker": "Services\\IUserService.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Services\\IUserService.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Services\\IUserService.cs",
               "RelativeToolTip": "Services\\IUserService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -273,11 +305,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\UserController.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\UserController.cs",
               "RelativeToolTip": "Controllers\\UserController.cs",
               "ViewState": "AgIAAFoAAAAAAAAAAAAAAIwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -285,11 +317,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\AuthController.cs",
               "RelativeToolTip": "Controllers\\AuthController.cs",
               "ViewState": "AgIAADYAAAAAAAAAAAAQwGkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -297,11 +329,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "Usuario.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Models\\Usuario.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Models\\Usuario.cs",
               "RelativeDocumentMoniker": "Models\\Usuario.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Models\\Usuario.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Models\\Usuario.cs",
               "RelativeToolTip": "Models\\Usuario.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -309,11 +341,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "AuthDTO.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\DTOs\\AuthDTO.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\DTOs\\AuthDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\AuthDTO.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\DTOs\\AuthDTO.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\DTOs\\AuthDTO.cs",
               "RelativeToolTip": "DTOs\\AuthDTO.cs",
               "ViewState": "AgIAABkAAAAAAAAAAAAswCUAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -321,11 +353,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Data\\ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Data\\ApplicationDbContext.cs",
               "RelativeToolTip": "Data\\ApplicationDbContext.cs",
               "ViewState": "AgIAAMwAAAAAAAAAAAAQwOoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -333,11 +365,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "Persona.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Models\\Persona.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Models\\Persona.cs",
               "RelativeDocumentMoniker": "Models\\Persona.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Models\\Persona.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Models\\Persona.cs",
               "RelativeToolTip": "Models\\Persona.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -345,11 +377,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "VerificacionController.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\VerificacionController.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\VerificacionController.cs",
               "RelativeDocumentMoniker": "Controllers\\VerificacionController.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\VerificacionController.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Controllers\\VerificacionController.cs",
               "RelativeToolTip": "Controllers\\VerificacionController.cs",
               "ViewState": "AgIAAMkAAAAAAAAAAAAAAPsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -357,11 +389,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "RegistroDTO.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\DTOs\\RegistroDTO.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\DTOs\\RegistroDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\RegistroDTO.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\DTOs\\RegistroDTO.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\DTOs\\RegistroDTO.cs",
               "RelativeToolTip": "DTOs\\RegistroDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -369,11 +401,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 24,
               "Title": "Empresa.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Models\\Empresa.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Models\\Empresa.cs",
               "RelativeDocumentMoniker": "Models\\Empresa.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Models\\Empresa.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Models\\Empresa.cs",
               "RelativeToolTip": "Models\\Empresa.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -381,11 +413,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 23,
               "Title": "IAuthService.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Services\\IAuthService.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Services\\IAuthService.cs",
               "RelativeDocumentMoniker": "Services\\IAuthService.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Services\\IAuthService.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Services\\IAuthService.cs",
               "RelativeToolTip": "Services\\IAuthService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -393,11 +425,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 22,
               "Title": "AuthService.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Services\\AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Services\\AuthService.cs",
               "RelativeDocumentMoniker": "Services\\AuthService.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Services\\AuthService.cs",
               "RelativeToolTip": "Services\\AuthService.cs",
               "ViewState": "AgIAAHAAAAAAAAAAAAAqwKIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -405,11 +437,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 26,
               "Title": "VerificacionService.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Services\\VerificacionService.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Services\\VerificacionService.cs",
               "RelativeDocumentMoniker": "Services\\VerificacionService.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Services\\VerificacionService.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Services\\VerificacionService.cs",
               "RelativeToolTip": "Services\\VerificacionService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -417,11 +449,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 25,
               "Title": "IVerificacionService.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Services\\IVerificacionService.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Services\\IVerificacionService.cs",
               "RelativeDocumentMoniker": "Services\\IVerificacionService.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Services\\IVerificacionService.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Services\\IVerificacionService.cs",
               "RelativeToolTip": "Services\\IVerificacionService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -429,11 +461,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 27,
               "Title": "VerificacionDTO.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\DTOs\\VerificacionDTO.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\DTOs\\VerificacionDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\VerificacionDTO.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\DTOs\\VerificacionDTO.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\DTOs\\VerificacionDTO.cs",
               "RelativeToolTip": "DTOs\\VerificacionDTO.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAiwCcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -441,11 +473,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 28,
               "Title": "JwtSettings.cs",
-              "DocumentMoniker": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Helpers\\JwtSettings.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Helpers\\JwtSettings.cs",
               "RelativeDocumentMoniker": "Helpers\\JwtSettings.cs",
-              "ToolTip": "C:\\Users\\willi\\imei-system\\Sistema de Verificaci\u00F3n IMEI\\Helpers\\JwtSettings.cs",
+              "ToolTip": "C:\\Users\\willi\\Sistema de Verificaci\u00F3n IMEI\\Helpers\\JwtSettings.cs",
               "RelativeToolTip": "Helpers\\JwtSettings.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
