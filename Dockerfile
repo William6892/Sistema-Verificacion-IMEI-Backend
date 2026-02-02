@@ -1,19 +1,16 @@
-# Build stage
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# Copy project file and restore dependencies
-COPY "Sistema de Verificación IMEI.csproj" .
-RUN dotnet restore "Sistema de Verificación IMEI.csproj"
-
-# Copy everything else and build
+# Copiar todo (incluyendo el .csproj)
 COPY . .
+
+# Restaurar y publicar
+RUN dotnet restore
 RUN dotnet publish -c Release -o /app/publish
 
-# Runtime stage  
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
 COPY --from=build /app/publish .
 
 EXPOSE 80
-ENTRYPOINT ["dotnet", "Sistema de Verificación IMEI.dll"]
+ENTRYPOINT ["dotnet", "Sistema de Verificaci�n IMEI.dll"]
