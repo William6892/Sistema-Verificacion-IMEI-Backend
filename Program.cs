@@ -104,12 +104,25 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // 5. Configurar PostgreSQL con Neon
 // Obtener connection string de variables de entorno o appsettings
 var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
-    ?? builder.Configuration.GetConnectionString("NeonConnection");
+    ?? Environment.GetEnvironmentVariable("NeonConnection")
+    ?? builder.Configuration.GetConnectionString("NeonConnection")
+    ?? builder.Configuration.GetConnectionString("DefaultConnection");
 
 if (string.IsNullOrEmpty(connectionString))
 {
+    // Para debug: mostrar qué variables hay
+    Console.WriteLine("❌ Variables de entorno disponibles:");
+    var envVars = Environment.GetEnvironmentVariables();
+    foreach (var key in envVars.Keys)
+    {
+        Console.WriteLine($"   {key} = {envVars[key]}");
+    }
+
     throw new InvalidOperationException("No se encontró la cadena de conexión a la base de datos");
 }
+
+Console.WriteLine($"🔄 Configurando conexión a la base de datos...");
+Console.WriteLine($"   Usando: {connectionString.Substring(0, Math.Min(50, connectionString.Length))}...");
 
 Console.WriteLine($"🔄 Configurando conexión a la base de datos...");
 
