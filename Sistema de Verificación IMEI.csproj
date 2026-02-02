@@ -4,6 +4,8 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	  <AssemblyName>SistemaIMEI</AssemblyName>
+	  <OutputType>Exe</OutputType>
     <RootNamespace>Sistema_de_Verificación_IMEI</RootNamespace>
     <UserSecretsId>17911be9-c5b9-4777-ae0a-92cf2e60e212</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
