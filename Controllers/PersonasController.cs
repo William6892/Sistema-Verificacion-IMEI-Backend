@@ -305,6 +305,40 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 return StatusCode(500, new { mensaje = "Error interno del servidor" });
             }
         }
+
+        [HttpGet("por-empresa/{empresaId}")]
+        public async Task<IActionResult> GetPersonasPorEmpresa(int empresaId)
+        {
+            try
+            {
+                var personas = await _context.Personas
+                    .Where(p => p.EmpresaId == empresaId && p.Activo)
+                    .Select(p => new
+                    {
+                        p.Id,
+                        p.Nombre,
+                        // 🔥 IMPORTANTE: Aquí debe desencriptar
+                        Identificacion = !string.IsNullOrEmpty(p.Identificacion)
+                            ? _encryptionService.Decrypt(p.Identificacion)
+                            : string.Empty,
+                        p.Telefono,
+                        p.Email,
+                        p.EmpresaId,
+                        // Campo para mostrar cantidad de dispositivos
+                        CantidadDispositivos = p.Dispositivos != null
+                            ? p.Dispositivos.Count(d => d.Activo)
+                            : 0
+                    })
+                    .ToListAsync();
+
+                return Ok(personas);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error obteniendo personas de empresa {empresaId}");
+                return StatusCode(500, new { mensaje = "Error interno" });
+            }
+        }
     }
 
     public class CreatePersonaDTO
