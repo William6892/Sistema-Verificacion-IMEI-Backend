@@ -3,13 +3,12 @@ WORKDIR /src
 
 COPY . .
 
-# Ahora solo hay un .csproj, pero igual debes especificarlo
-RUN dotnet restore "Sistema de Verificación IMEI.csproj"
-RUN dotnet publish "Sistema de Verificación IMEI.csproj" -c Release -o /app/publish
+RUN dotnet restore "SistemaIMEI.csproj"
+RUN dotnet publish "SistemaIMEI.csproj" -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
 COPY --from=build /app/publish .
 
 EXPOSE 80
-ENTRYPOINT ["dotnet", "Sistema de Verificación IMEI.dll"]
+ENTRYPOINT ["dotnet", "SistemaIMEI.dll"]
