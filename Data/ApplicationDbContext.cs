@@ -73,6 +73,18 @@ namespace Sistema_de_Verificación_IMEI.Data
                     .HasColumnName("telefono")
                     .HasMaxLength(50);
 
+                entity.Property(p => p.Email)  
+                    .HasColumnName("email")
+                    .HasMaxLength(100);
+
+                entity.Property(p => p.FechaCreacion)  
+                    .HasColumnName("fechacreacion")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(p => p.Activo) 
+                    .HasColumnName("activo")
+                    .HasDefaultValue(true);
+
                 entity.Property(p => p.EmpresaId)
                     .HasColumnName("empresaid")
                     .IsRequired();
