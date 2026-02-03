@@ -15,15 +15,18 @@ namespace Sistema_de_Verificación_IMEI.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IAuthService _authService;
+        private readonly IEncryptionService _encryptionService;
         private readonly ILogger<AdminController> _logger;
 
         public AdminController(
             ApplicationDbContext context,
             IAuthService authService,
+            IEncryptionService encryptionService,
             ILogger<AdminController> logger)
         {
             _context = context;
             _authService = authService;
+            _encryptionService = encryptionService;
             _logger = logger;
         }
 
@@ -71,9 +74,9 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                     return BadRequest(new { mensaje = "La contraseña debe tener al menos 6 caracteres" });
                 }
 
-                // Verificar que no sea rol Admin (solo superadmin puede crear admins)
+                // CORREGIDO: Verificar que el usuario actual sea Admin
                 var currentUserRol = User.FindFirst("rol")?.Value;
-                if (registerDto.Rol == "Admin" && currentUserRol != "SuperAdmin")
+                if (registerDto.Rol == "Admin" && currentUserRol != "Admin")
                 {
                     return Forbid("No tienes permiso para crear usuarios Admin");
                 }
@@ -141,15 +144,154 @@ namespace Sistema_de_Verificación_IMEI.Controllers
             }
         }
 
-        // POST: api/Admin/registrar-dispositivo - Registrar dispositivo (admin puede registrar cualquier IMEI)
+        // ========== MÉTODOS PARA PERSONAS (CON IDENTIFICACIÓN ENCRIPTADA) ==========
+
+        // GET: api/Admin/personas - Listar todas las personas
+        [HttpGet("personas")]
+        public async Task<IActionResult> GetPersonas(
+            [FromQuery] int? empresaId = null,
+            [FromQuery] string? search = null)
+        {
+            try
+            {
+                var query = _context.Personas
+                    .Include(p => p.Empresa)
+                    .Include(p => p.Dispositivos)
+                    .AsQueryable();
+
+                if (empresaId.HasValue)
+                {
+                    query = query.Where(p => p.EmpresaId == empresaId);
+                }
+
+                if (!string.IsNullOrWhiteSpace(search))
+                {
+                    search = search.ToLower();
+                    // Filtrar por nombre (en memoria para identificaciones)
+                    var personasTemp = await query.ToListAsync();
+
+                    var personasFiltradas = personasTemp
+                        .Where(p => p.Nombre.ToLower().Contains(search) ||
+                                   _encryptionService.Decrypt(p.Identificacion).Contains(search))
+                        .Select(p => new
+                        {
+                            p.Id,
+                            p.Nombre,
+                            Identificacion = _encryptionService.Decrypt(p.Identificacion), // Desencriptar
+                            p.Telefono,
+                            p.Email,
+                            p.Activo,
+                            Empresa = p.Empresa != null ? new { p.Empresa.Id, p.Empresa.Nombre } : null,
+                            TotalDispositivos = p.Dispositivos?.Count ?? 0
+                        })
+                        .ToList();
+
+                    return Ok(personasFiltradas);
+                }
+
+                var personas = await query
+                    .Select(p => new
+                    {
+                        p.Id,
+                        p.Nombre,
+                        Identificacion = _encryptionService.Decrypt(p.Identificacion), // Desencriptar
+                        p.Telefono,
+                        p.Email,
+                        p.Activo,
+                        Empresa = p.Empresa != null ? new { p.Empresa.Id, p.Empresa.Nombre } : null,
+                        TotalDispositivos = p.Dispositivos.Count
+                    })
+                    .ToListAsync();
+
+                return Ok(personas);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error obteniendo personas");
+                return StatusCode(500, new { mensaje = "Error interno del servidor" });
+            }
+        }
+
+        // POST: api/Admin/crear-persona - Crear persona con identificación encriptada
+        [HttpPost("crear-persona")]
+        public async Task<IActionResult> CrearPersona([FromBody] RegistrarPersonaDTO personaDto)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(personaDto.Nombre) ||
+                    string.IsNullOrWhiteSpace(personaDto.Identificacion))
+                {
+                    return BadRequest(new { mensaje = "Nombre e identificación son requeridos" });
+                }
+
+                // Encriptar la identificación
+                var identificacionEncriptada = _encryptionService.Encrypt(personaDto.Identificacion);
+
+                // Verificar si ya existe
+                var existe = await _context.Personas
+                    .AnyAsync(p => p.Identificacion == identificacionEncriptada);
+
+                if (existe)
+                {
+                    return Conflict(new { mensaje = "La identificación ya está registrada" });
+                }
+
+                // Verificar empresa
+                var empresa = await _context.Empresas.FindAsync(personaDto.EmpresaId);
+                if (empresa == null)
+                {
+                    return NotFound(new { mensaje = $"Empresa con ID {personaDto.EmpresaId} no encontrada" });
+                }
+
+                var persona = new Persona
+                {
+                    Nombre = personaDto.Nombre,
+                    Identificacion = identificacionEncriptada, // Guardar ENCRIPTADO
+                    Telefono = personaDto.Telefono,
+                    Email = personaDto.Email,
+                    EmpresaId = personaDto.EmpresaId,
+                    FechaCreacion = DateTime.UtcNow,
+                    Activo = true
+                };
+
+                _context.Personas.Add(persona);
+                await _context.SaveChangesAsync();
+
+                _logger.LogInformation($"Persona creada: {persona.Nombre}, ID: {personaDto.Identificacion}");
+
+                return Ok(new
+                {
+                    mensaje = "Persona creada exitosamente",
+                    id = persona.Id,
+                    nombre = persona.Nombre,
+                    empresaId = persona.EmpresaId
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creando persona");
+                return StatusCode(500, new { mensaje = "Error interno del servidor" });
+            }
+        }
+
+        // POST: api/Admin/registrar-dispositivo - Registrar dispositivo con IMEI encriptado
         [HttpPost("registrar-dispositivo")]
         public async Task<IActionResult> RegistrarDispositivoAdmin([FromBody] RegistrarDispositivoAdminDTO registroDto)
         {
             try
             {
-                // Verificar si el IMEI ya existe
+                // Validar IMEI
+                if (string.IsNullOrWhiteSpace(registroDto.IMEI) || registroDto.IMEI.Length != 15 || !registroDto.IMEI.All(char.IsDigit))
+                {
+                    return BadRequest(new { mensaje = "IMEI inválido. Debe tener 15 dígitos numéricos" });
+                }
+
+                // Encriptar el IMEI antes de guardar
+                var imeiEncriptado = _encryptionService.Encrypt(registroDto.IMEI);
+
+                // Verificar si el IMEI ya existe (comparando encriptado con encriptado)
                 var existe = await _context.Dispositivos
-                    .AnyAsync(d => d.IMEI == registroDto.IMEI);
+                    .AnyAsync(d => d.IMEI == imeiEncriptado);
 
                 if (existe)
                 {
@@ -166,12 +308,13 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                     return NotFound(new { mensaje = $"Persona con ID {registroDto.PersonaId} no encontrada" });
                 }
 
+                // Guardar el IMEI ENCRIPTADO en la columna IMEI normal
                 var dispositivo = new Dispositivo
                 {
-                    IMEI = registroDto.IMEI,
+                    IMEI = imeiEncriptado,  // ¡Guardas el encriptado!
                     PersonaId = registroDto.PersonaId,
                     FechaRegistro = DateTime.UtcNow,
-                    Activo = true
+                    Activo = registroDto.Activo ?? true
                 };
 
                 _context.Dispositivos.Add(dispositivo);
@@ -183,7 +326,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 {
                     mensaje = "Dispositivo registrado exitosamente",
                     id = dispositivo.Id,
-                    imei = dispositivo.IMEI,
+                    imeiOriginal = registroDto.IMEI, // Solo en respuesta
                     persona = new
                     {
                         persona.Id,
@@ -194,7 +337,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error registrando dispositivo desde admin");
+                _logger.LogError(ex, "Error registrando dispositivo");
                 return StatusCode(500, new { mensaje = "Error interno del servidor" });
             }
         }
@@ -227,9 +370,8 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 return StatusCode(500, new { mensaje = "Error interno del servidor" });
             }
         }
-        // En tu AdminController.cs - AGREGA ESTOS MÉTODOS:
 
-        // GET: api/Admin/dispositivos - Listar dispositivos
+        // GET: api/Admin/dispositivos - Listar dispositivos con IMEI desencriptado (solo para admin)
         [HttpGet("dispositivos")]
         public async Task<IActionResult> GetDispositivos(
             [FromQuery] int? empresaId = null,
@@ -257,19 +399,52 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                     query = query.Where(d => d.Activo == activo);
                 }
 
-                // Buscar por IMEI o nombre de persona
+                // Buscar por IMEI (desencriptado) o nombre de persona/empresa
                 if (!string.IsNullOrWhiteSpace(search))
                 {
                     search = search.ToLower();
-                    query = query.Where(d =>
-                        d.IMEI.Contains(search) ||
-                        d.Persona.Nombre.ToLower().Contains(search) ||
-                        d.Persona.Empresa.Nombre.ToLower().Contains(search)
-                    );
+
+                    // Primero obtenemos todos los dispositivos y filtramos en memoria
+                    var dispositivosTemp = await query.ToListAsync();
+
+                    // Filtramos desencriptando cada IMEI
+                    var dispositivosFiltrados = dispositivosTemp
+                        .Where(d =>
+                            _encryptionService.Decrypt(d.IMEI).ToLower().Contains(search) ||
+                            d.Persona.Nombre.ToLower().Contains(search) ||
+                            d.Persona.Empresa.Nombre.ToLower().Contains(search))
+                        .Skip((page - 1) * limit)
+                        .Take(limit)
+                        .Select(d => new
+                        {
+                            d.Id,
+                            IMEI = _encryptionService.Decrypt(d.IMEI), // Desencriptar
+                            IMEIHash = _encryptionService.GenerateHash(_encryptionService.Decrypt(d.IMEI)),
+                            PersonaId = d.Persona.Id,
+                            PersonaNombre = d.Persona.Nombre,
+                            // CORREGIDO: Desencriptar la identificación de la persona
+                            PersonaIdentificacion = _encryptionService.Decrypt(d.Persona.Identificacion),
+                            EmpresaId = d.Persona.Empresa.Id,
+                            EmpresaNombre = d.Persona.Empresa.Nombre,
+                            d.Activo,
+                            d.FechaRegistro
+                        })
+                        .ToList();
+
+                    var total = dispositivosTemp.Count;
+
+                    return Ok(new
+                    {
+                        dispositivos = dispositivosFiltrados,
+                        total,
+                        page,
+                        limit,
+                        totalPages = (int)Math.Ceiling(total / (double)limit)
+                    });
                 }
 
                 // Calcular total para paginación
-                var total = await query.CountAsync();
+                var totalSinFiltro = await query.CountAsync();
 
                 // Paginación
                 var dispositivos = await query
@@ -279,9 +454,13 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                     .Select(d => new
                     {
                         d.Id,
-                        d.IMEI,
+                        IMEI = _encryptionService.Decrypt(d.IMEI), // Desencriptar
+                        IMEIHash = _encryptionService.GenerateHash(_encryptionService.Decrypt(d.IMEI)),
                         PersonaId = d.Persona.Id,
                         PersonaNombre = d.Persona.Nombre,
+                        // CORREGIDO: Desencriptar la identificación de la persona
+                        PersonaIdentificacion = _encryptionService.Decrypt(d.Persona.Identificacion),
+                        PersonaTelefono = d.Persona.Telefono,
                         EmpresaId = d.Persona.Empresa.Id,
                         EmpresaNombre = d.Persona.Empresa.Nombre,
                         d.Activo,
@@ -292,10 +471,10 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 return Ok(new
                 {
                     dispositivos,
-                    total,
+                    total = totalSinFiltro,
                     page,
                     limit,
-                    totalPages = (int)Math.Ceiling(total / (double)limit)
+                    totalPages = (int)Math.Ceiling(totalSinFiltro / (double)limit)
                 });
             }
             catch (Exception ex)
@@ -305,7 +484,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
             }
         }
 
-        // GET: api/Admin/dispositivos/{id} - Obtener dispositivo por ID
+        // GET: api/Admin/dispositivos/{id} - Obtener dispositivo por ID (con IMEI desencriptado)
         [HttpGet("dispositivos/{id}")]
         public async Task<IActionResult> GetDispositivo(int id)
         {
@@ -314,28 +493,30 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 var dispositivo = await _context.Dispositivos
                     .Include(d => d.Persona)
                         .ThenInclude(p => p.Empresa)
-                    .Where(d => d.Id == id)
-                    .Select(d => new
-                    {
-                        d.Id,
-                        d.IMEI,
-                        PersonaId = d.Persona.Id,
-                        PersonaNombre = d.Persona.Nombre,
-                        PersonaIdentificacion = d.Persona.Identificacion,
-                        PersonaTelefono = d.Persona.Telefono,
-                        EmpresaId = d.Persona.Empresa.Id,
-                        EmpresaNombre = d.Persona.Empresa.Nombre,
-                        d.Activo,
-                        d.FechaRegistro
-                    })
-                    .FirstOrDefaultAsync();
+                    .FirstOrDefaultAsync(d => d.Id == id);
 
                 if (dispositivo == null)
                 {
                     return NotFound(new { mensaje = $"Dispositivo con ID {id} no encontrado" });
                 }
 
-                return Ok(dispositivo);
+                var resultado = new
+                {
+                    dispositivo.Id,
+                    IMEI = _encryptionService.Decrypt(dispositivo.IMEI), // Desencriptar
+                    IMEIHash = _encryptionService.GenerateHash(_encryptionService.Decrypt(dispositivo.IMEI)),
+                    PersonaId = dispositivo.Persona.Id,
+                    PersonaNombre = dispositivo.Persona.Nombre,
+                    // CORREGIDO: Desencriptar la identificación
+                    PersonaIdentificacion = _encryptionService.Decrypt(dispositivo.Persona.Identificacion),
+                    PersonaTelefono = dispositivo.Persona.Telefono,
+                    EmpresaId = dispositivo.Persona.Empresa.Id,
+                    EmpresaNombre = dispositivo.Persona.Empresa.Nombre,
+                    dispositivo.Activo,
+                    dispositivo.FechaRegistro
+                };
+
+                return Ok(resultado);
             }
             catch (Exception ex)
             {
@@ -354,20 +535,24 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                     .Include(d => d.Persona)
                         .ThenInclude(p => p.Empresa)
                     .Where(d => d.PersonaId == personaId)
-                    .Select(d => new
-                    {
-                        d.Id,
-                        d.IMEI,
-                        PersonaId = d.Persona.Id,
-                        PersonaNombre = d.Persona.Nombre,
-                        EmpresaId = d.Persona.Empresa.Id,
-                        EmpresaNombre = d.Persona.Empresa.Nombre,
-                        d.Activo,
-                        d.FechaRegistro
-                    })
                     .ToListAsync();
 
-                return Ok(dispositivos);
+                var resultado = dispositivos.Select(d => new
+                {
+                    d.Id,
+                    IMEI = _encryptionService.Decrypt(d.IMEI), // Desencriptar
+                    IMEIHash = _encryptionService.GenerateHash(_encryptionService.Decrypt(d.IMEI)),
+                    PersonaId = d.Persona.Id,
+                    PersonaNombre = d.Persona.Nombre,
+                    // CORREGIDO: Desencriptar la identificación
+                    PersonaIdentificacion = _encryptionService.Decrypt(d.Persona.Identificacion),
+                    EmpresaId = d.Persona.Empresa.Id,
+                    EmpresaNombre = d.Persona.Empresa.Nombre,
+                    d.Activo,
+                    d.FechaRegistro
+                }).ToList();
+
+                return Ok(resultado);
             }
             catch (Exception ex)
             {
@@ -382,27 +567,41 @@ namespace Sistema_de_Verificación_IMEI.Controllers
         {
             try
             {
+                // Validar IMEI
+                if (string.IsNullOrWhiteSpace(imei) || imei.Length != 15 || !imei.All(char.IsDigit))
+                {
+                    return BadRequest(new { mensaje = "IMEI inválido. Debe tener 15 dígitos numéricos" });
+                }
+
+                // Encriptar el IMEI para buscar en la BD
+                var imeiEncriptado = _encryptionService.Encrypt(imei);
+
                 var dispositivo = await _context.Dispositivos
                     .Include(d => d.Persona)
                         .ThenInclude(p => p.Empresa)
-                    .Where(d => d.IMEI == imei)
-                    .Select(d => new
-                    {
-                        d.Id,
-                        d.IMEI,
-                        PersonaId = d.Persona.Id,
-                        PersonaNombre = d.Persona.Nombre,
-                        EmpresaId = d.Persona.Empresa.Id,
-                        EmpresaNombre = d.Persona.Empresa.Nombre,
-                        d.Activo,
-                        d.FechaRegistro
-                    })
-                    .FirstOrDefaultAsync();
+                    .FirstOrDefaultAsync(d => d.IMEI == imeiEncriptado);
+
+                var existe = dispositivo != null;
+
+                var resultado = existe ? new
+                {
+                    dispositivo.Id,
+                    IMEI = imei, // El original que recibiste
+                    IMEIHash = _encryptionService.GenerateHash(imei),
+                    PersonaId = dispositivo.Persona.Id,
+                    PersonaNombre = dispositivo.Persona.Nombre,
+                    // CORREGIDO: Desencriptar la identificación
+                    PersonaIdentificacion = _encryptionService.Decrypt(dispositivo.Persona.Identificacion),
+                    EmpresaId = dispositivo.Persona.Empresa.Id,
+                    EmpresaNombre = dispositivo.Persona.Empresa.Nombre,
+                    dispositivo.Activo,
+                    dispositivo.FechaRegistro
+                } : null;
 
                 return Ok(new
                 {
-                    existe = dispositivo != null,
-                    dispositivo
+                    existe,
+                    dispositivo = resultado
                 });
             }
             catch (Exception ex)
@@ -447,7 +646,6 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 {
                     mensaje = "Dispositivo actualizado exitosamente",
                     id = dispositivo.Id,
-                    imei = dispositivo.IMEI,
                     personaId = dispositivo.PersonaId,
                     activo = dispositivo.Activo
                 });
@@ -478,7 +676,6 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 {
                     mensaje = activo ? "Dispositivo activado" : "Dispositivo desactivado",
                     id = dispositivo.Id,
-                    imei = dispositivo.IMEI,
                     activo = dispositivo.Activo
                 });
             }
@@ -489,9 +686,9 @@ namespace Sistema_de_Verificación_IMEI.Controllers
             }
         }
 
-        // DELETE: api/Admin/dispositivos/{id} - Eliminar dispositivo (solo superadmin)
+        // DELETE: api/Admin/dispositivos/{id} - Eliminar dispositivo (solo admin)
         [HttpDelete("dispositivos/{id}")]
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteDispositivo(int id)
         {
             try
@@ -505,11 +702,12 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 _context.Dispositivos.Remove(dispositivo);
                 await _context.SaveChangesAsync();
 
+                _logger.LogInformation($"Dispositivo eliminado por Admin. ID: {id}");
+
                 return Ok(new
                 {
                     mensaje = "Dispositivo eliminado exitosamente",
-                    id = dispositivo.Id,
-                    imei = dispositivo.IMEI
+                    id = dispositivo.Id
                 });
             }
             catch (Exception ex)

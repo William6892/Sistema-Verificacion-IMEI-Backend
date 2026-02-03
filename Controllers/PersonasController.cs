@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sistema_de_Verificación_IMEI.Data;
 using Sistema_de_Verificación_IMEI.Models;
+using Sistema_de_Verificación_IMEI.Services;
 
 namespace Sistema_de_Verificación_IMEI.Controllers
 {
@@ -13,11 +14,16 @@ namespace Sistema_de_Verificación_IMEI.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<PersonasController> _logger;
+        private readonly IEncryptionService _encryptionService;
 
-        public PersonasController(ApplicationDbContext context, ILogger<PersonasController> logger)
+        public PersonasController(
+            ApplicationDbContext context,
+            ILogger<PersonasController> logger,
+            IEncryptionService encryptionService)
         {
             _context = context;
             _logger = logger;
+            _encryptionService = encryptionService;
         }
 
         private bool IsAdmin()
@@ -45,21 +51,23 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                     }
                 }
 
-                // ✅ CAMBIA ESTAS LÍNEAS:
                 var personas = await query
                     .Include(p => p.Empresa)
-                    .Select(p => new
-                    {
-                        p.Id,
-                        p.Nombre,
-                        p.Identificacion,
-                        p.Telefono,
-                        EmpresaId = p.EmpresaId,                         
-                        EmpresaNombre = p.Empresa != null ? p.Empresa.Nombre : "Sin empresa"  
-                    })
-                    .ToListAsync();
+                    .ToListAsync(); // Primero obtener las personas
 
-                return Ok(personas);
+                // Desencriptar en memoria
+                var personasDesencriptadas = personas.Select(p => new
+                {
+                    p.Id,
+                    p.Nombre,
+                    Identificacion = _encryptionService.Decrypt(p.Identificacion), // ¡DESENCRIPTAR AQUÍ!
+                    p.Telefono,
+                    EmpresaId = p.EmpresaId,
+                    EmpresaNombre = p.Empresa != null ? p.Empresa.Nombre : "Sin empresa"
+                })
+                .ToList();
+
+                return Ok(personasDesencriptadas);
             }
             catch (Exception ex)
             {
@@ -96,7 +104,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 {
                     persona.Id,
                     persona.Nombre,
-                    persona.Identificacion,
+                    Identificacion = _encryptionService.Decrypt(persona.Identificacion), // ¡DESENCRIPTAR!
                     persona.Telefono,
                     empresaId = persona.EmpresaId,
                     empresaNombre = persona.Empresa?.Nombre
@@ -114,7 +122,6 @@ namespace Sistema_de_Verificación_IMEI.Controllers
         {
             try
             {
-                // VERIFICAR SI ES ADMIN
                 if (!IsAdmin())
                     return Forbid("Solo los administradores pueden crear personas");
 
@@ -124,8 +131,12 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 if (string.IsNullOrWhiteSpace(personaDto.Identificacion))
                     return BadRequest(new { mensaje = "Identificación requerida" });
 
+                // Encriptar la identificación para buscar
+                var identificacionEncriptada = _encryptionService.Encrypt(personaDto.Identificacion);
+
+                // Verificar si ya existe (comparando encriptado con encriptado)
                 var existeIdentificacion = await _context.Personas
-                    .AnyAsync(p => p.Identificacion == personaDto.Identificacion);
+                    .AnyAsync(p => p.Identificacion == identificacionEncriptada);
 
                 if (existeIdentificacion)
                     return Conflict(new { mensaje = $"Identificación {personaDto.Identificacion} ya existe" });
@@ -137,9 +148,11 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 var persona = new Persona
                 {
                     Nombre = personaDto.Nombre.Trim(),
-                    Identificacion = personaDto.Identificacion.Trim(),
+                    Identificacion = identificacionEncriptada, // Guardar ENCRIPTADO
                     Telefono = personaDto.Telefono?.Trim(),
-                    EmpresaId = personaDto.EmpresaId
+                    EmpresaId = personaDto.EmpresaId,
+                    FechaCreacion = DateTime.UtcNow,
+                    Activo = true
                 };
 
                 _context.Personas.Add(persona);
@@ -152,7 +165,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                     mensaje = "Persona creada exitosamente",
                     id = persona.Id,
                     persona.Nombre,
-                    persona.Identificacion,
+                    Identificacion = personaDto.Identificacion, // Mostrar la original
                     persona.Telefono,
                     empresaId = persona.EmpresaId
                 });
@@ -176,16 +189,19 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 if (persona == null)
                     return NotFound(new { mensaje = "Persona no encontrada" });
 
-                if (!string.IsNullOrWhiteSpace(personaDto.Identificacion) &&
-                    personaDto.Identificacion != persona.Identificacion)
+                // Si cambia la identificación, verificar que no exista
+                if (!string.IsNullOrWhiteSpace(personaDto.Identificacion))
                 {
+                    var nuevaIdentificacionEncriptada = _encryptionService.Encrypt(personaDto.Identificacion);
+
+                    // Verificar si ya existe (excepto esta misma persona)
                     var existeIdentificacion = await _context.Personas
-                        .AnyAsync(p => p.Identificacion == personaDto.Identificacion && p.Id != id);
+                        .AnyAsync(p => p.Identificacion == nuevaIdentificacionEncriptada && p.Id != id);
 
                     if (existeIdentificacion)
                         return Conflict(new { mensaje = $"Identificación {personaDto.Identificacion} ya existe" });
 
-                    persona.Identificacion = personaDto.Identificacion.Trim();
+                    persona.Identificacion = nuevaIdentificacionEncriptada;
                 }
 
                 if (!string.IsNullOrWhiteSpace(personaDto.Nombre))
@@ -210,7 +226,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                     mensaje = "Persona actualizada",
                     id = persona.Id,
                     persona.Nombre,
-                    persona.Identificacion,
+                    Identificacion = _encryptionService.Decrypt(persona.Identificacion), // Desencriptar para mostrar
                     persona.Telefono,
                     empresaId = persona.EmpresaId
                 });
@@ -249,6 +265,39 @@ namespace Sistema_de_Verificación_IMEI.Controllers
             {
                 _logger.LogError(ex, $"Error eliminando persona {id}");
                 return StatusCode(500, new { mensaje = "Error interno" });
+            }
+        }
+
+        [HttpGet("buscar")]
+        public async Task<IActionResult> BuscarPersona([FromQuery] string identificacion)
+        {
+            try
+            {
+                // Encriptar lo que recibimos para buscar
+                var identificacionEncriptada = _encryptionService.Encrypt(identificacion);
+
+                var persona = await _context.Personas
+                    .Where(p => p.Identificacion == identificacionEncriptada) // Buscar encriptado
+                    .Include(p => p.Empresa)
+                    .FirstOrDefaultAsync();
+
+                if (persona == null)
+                    return NotFound(new { mensaje = "Persona no encontrada" });
+
+                return Ok(new
+                {
+                    persona.Id,
+                    persona.Nombre,
+                    Identificacion = identificacion, // Mostrar la original que recibimos
+                    persona.Telefono,
+                    empresaId = persona.EmpresaId,
+                    empresaNombre = persona.Empresa?.Nombre
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error buscando persona por identificación");
+                return StatusCode(500, new { mensaje = "Error interno del servidor" });
             }
         }
     }
