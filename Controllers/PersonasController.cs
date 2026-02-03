@@ -53,14 +53,16 @@ namespace Sistema_de_Verificación_IMEI.Controllers
 
                 var personas = await query
                     .Include(p => p.Empresa)
-                    .ToListAsync(); // Primero obtener las personas
+                    .ToListAsync();
 
-                // Desencriptar en memoria
+                // CORRECCIÓN: Verificar si la identificación no es nula antes de desencriptar
                 var personasDesencriptadas = personas.Select(p => new
                 {
                     p.Id,
                     p.Nombre,
-                    Identificacion = _encryptionService.Decrypt(p.Identificacion), // ¡DESENCRIPTAR AQUÍ!
+                    Identificacion = !string.IsNullOrEmpty(p.Identificacion)
+                        ? _encryptionService.Decrypt(p.Identificacion)
+                        : string.Empty,
                     p.Telefono,
                     EmpresaId = p.EmpresaId,
                     EmpresaNombre = p.Empresa != null ? p.Empresa.Nombre : "Sin empresa"
@@ -100,11 +102,14 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                     }
                 }
 
+                // CORRECCIÓN: Verificar si la identificación no es nula
                 return Ok(new
                 {
                     persona.Id,
                     persona.Nombre,
-                    Identificacion = _encryptionService.Decrypt(persona.Identificacion), // ¡DESENCRIPTAR!
+                    Identificacion = !string.IsNullOrEmpty(persona.Identificacion)
+                        ? _encryptionService.Decrypt(persona.Identificacion)
+                        : string.Empty,
                     persona.Telefono,
                     empresaId = persona.EmpresaId,
                     empresaNombre = persona.Empresa?.Nombre
@@ -148,7 +153,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 var persona = new Persona
                 {
                     Nombre = personaDto.Nombre.Trim(),
-                    Identificacion = identificacionEncriptada, // Guardar ENCRIPTADO
+                    Identificacion = identificacionEncriptada,
                     Telefono = personaDto.Telefono?.Trim(),
                     EmpresaId = personaDto.EmpresaId,
                     FechaCreacion = DateTime.UtcNow,
@@ -165,7 +170,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                     mensaje = "Persona creada exitosamente",
                     id = persona.Id,
                     persona.Nombre,
-                    Identificacion = personaDto.Identificacion, // Mostrar la original
+                    Identificacion = personaDto.Identificacion,
                     persona.Telefono,
                     empresaId = persona.EmpresaId
                 });
@@ -194,7 +199,6 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 {
                     var nuevaIdentificacionEncriptada = _encryptionService.Encrypt(personaDto.Identificacion);
 
-                    // Verificar si ya existe (excepto esta misma persona)
                     var existeIdentificacion = await _context.Personas
                         .AnyAsync(p => p.Identificacion == nuevaIdentificacionEncriptada && p.Id != id);
 
@@ -226,7 +230,9 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                     mensaje = "Persona actualizada",
                     id = persona.Id,
                     persona.Nombre,
-                    Identificacion = _encryptionService.Decrypt(persona.Identificacion), // Desencriptar para mostrar
+                    Identificacion = !string.IsNullOrEmpty(persona.Identificacion)
+                        ? _encryptionService.Decrypt(persona.Identificacion)
+                        : string.Empty,
                     persona.Telefono,
                     empresaId = persona.EmpresaId
                 });
@@ -273,11 +279,10 @@ namespace Sistema_de_Verificación_IMEI.Controllers
         {
             try
             {
-                // Encriptar lo que recibimos para buscar
                 var identificacionEncriptada = _encryptionService.Encrypt(identificacion);
 
                 var persona = await _context.Personas
-                    .Where(p => p.Identificacion == identificacionEncriptada) // Buscar encriptado
+                    .Where(p => p.Identificacion == identificacionEncriptada)
                     .Include(p => p.Empresa)
                     .FirstOrDefaultAsync();
 
@@ -288,7 +293,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 {
                     persona.Id,
                     persona.Nombre,
-                    Identificacion = identificacion, // Mostrar la original que recibimos
+                    Identificacion = identificacion,
                     persona.Telefono,
                     empresaId = persona.EmpresaId,
                     empresaNombre = persona.Empresa?.Nombre
