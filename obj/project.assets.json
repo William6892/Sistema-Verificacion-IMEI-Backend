@@ -3728,9 +3728,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\willi\\Sistema de Verificación IMEI\\Sistema de Verificación IMEI.csproj",
+      "projectUniqueName": "C:\\Users\\willi\\Sistema de Verificación IMEI\\SistemaIMEI.csproj",
       "projectName": "SistemaIMEI",
-      "projectPath": "C:\\Users\\willi\\Sistema de Verificación IMEI\\Sistema de Verificación IMEI.csproj",
+      "projectPath": "C:\\Users\\willi\\Sistema de Verificación IMEI\\SistemaIMEI.csproj",
       "packagesPath": "C:\\Users\\willi\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\willi\\Sistema de Verificación IMEI\\obj\\",
       "projectStyle": "PackageReference",
