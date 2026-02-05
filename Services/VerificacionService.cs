@@ -133,7 +133,7 @@ namespace Sistema_de_Verificación_IMEI.Services
             }
         }
 
-        // resto de los métodos se mantienen igual ...
+        // resto de los métodos se mantienen igual 
         public async Task<Dispositivo> RegistrarDispositivoAsync(RegistrarDispositivoDTO registroDto)
         {
             // Verificar si el IMEI ya existe
