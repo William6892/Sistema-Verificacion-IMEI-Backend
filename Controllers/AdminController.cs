@@ -281,9 +281,9 @@ namespace Sistema_de_Verificación_IMEI.Controllers
             try
             {
                 // Validar IMEI
-                if (string.IsNullOrWhiteSpace(registroDto.IMEI) || registroDto.IMEI.Length != 15 || !registroDto.IMEI.All(char.IsDigit))
+                if (string.IsNullOrWhiteSpace(registroDto.IMEI) || registroDto.IMEI.Length < 14 || registroDto.IMEI.Length > 16 || !registroDto.IMEI.All(char.IsDigit))
                 {
-                    return BadRequest(new { mensaje = "IMEI inválido. Debe tener 15 dígitos numéricos" });
+                    return BadRequest(new { mensaje = "IMEI inválido. Debe tener entre 14 y 16 dígitos numéricos" });
                 }
 
                 // Encriptar el IMEI antes de guardar
