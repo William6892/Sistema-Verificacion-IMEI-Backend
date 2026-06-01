@@ -276,6 +276,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
 
         // POST: api/Admin/registrar-dispositivo - Registrar dispositivo con IMEI encriptado
         [HttpPost("registrar-dispositivo")]
+        [Authorize(Roles = "Admin, Supervisor")]
         public async Task<IActionResult> RegistrarDispositivoAdmin([FromBody] RegistrarDispositivoAdminDTO registroDto)
         {
             try
