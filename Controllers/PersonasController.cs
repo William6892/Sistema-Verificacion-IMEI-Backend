@@ -32,22 +32,35 @@ namespace Sistema_de_Verificación_IMEI.Controllers
             return userRol == "Admin";
         }
 
+        private bool IsAdminOrSupervisor()
+        {
+            var userRol = User.FindFirst("rol")?.Value;
+            return userRol == "Admin" || userRol == "Supervisor";
+        }
+
+        private int? GetUserEmpresaId()
+        {
+            var userEmpresaId = User.FindFirst("empresaId")?.Value;
+            if (!string.IsNullOrEmpty(userEmpresaId) && int.TryParse(userEmpresaId, out int empresaId))
+                return empresaId;
+            return null;
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetPersonas()
         {
             try
             {
                 var userRol = User.FindFirst("rol")?.Value;
-                var userEmpresaId = User.FindFirst("empresaId")?.Value;
+                var userEmpresaId = GetUserEmpresaId();
 
                 IQueryable<Persona> query = _context.Personas;
 
                 if (userRol != "Admin")
                 {
-                    if (!string.IsNullOrEmpty(userEmpresaId) &&
-                        int.TryParse(userEmpresaId, out int empresaId))
+                    if (userEmpresaId.HasValue)
                     {
-                        query = query.Where(p => p.EmpresaId == empresaId);
+                        query = query.Where(p => p.EmpresaId == userEmpresaId.Value);
                     }
                 }
 
@@ -55,7 +68,6 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                     .Include(p => p.Empresa)
                     .ToListAsync();
 
-                // CORRECCIÓN: Verificar si la identificación no es nula antes de desencriptar
                 var personasDesencriptadas = personas.Select(p => new
                 {
                     p.Id,
@@ -84,7 +96,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
             try
             {
                 var userRol = User.FindFirst("rol")?.Value;
-                var userEmpresaId = User.FindFirst("empresaId")?.Value;
+                var userEmpresaId = GetUserEmpresaId();
 
                 var persona = await _context.Personas
                     .Include(p => p.Empresa)
@@ -93,16 +105,14 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 if (persona == null)
                     return NotFound(new { mensaje = "Persona no encontrada" });
 
-                if (userRol != "Admin" && !string.IsNullOrEmpty(userEmpresaId))
+                // Admin puede ver cualquier persona
+                // Supervisor solo puede ver personas de su empresa
+                if (userRol != "Admin" && userEmpresaId.HasValue)
                 {
-                    if (int.TryParse(userEmpresaId, out int empresaId))
-                    {
-                        if (persona.EmpresaId != empresaId)
-                            return Forbid("No tienes permiso para ver esta persona");
-                    }
+                    if (persona.EmpresaId != userEmpresaId.Value)
+                        return Forbid("No tienes permiso para ver esta persona");
                 }
 
-                // CORRECCIÓN: Verificar si la identificación no es nula
                 return Ok(new
                 {
                     persona.Id,
@@ -127,8 +137,9 @@ namespace Sistema_de_Verificación_IMEI.Controllers
         {
             try
             {
-                if (!IsAdmin())
-                    return Forbid("Solo los administradores pueden crear personas");
+                // Admin y Supervisor pueden crear personas
+                if (!IsAdminOrSupervisor())
+                    return Forbid("No tienes permiso para crear personas");
 
                 if (string.IsNullOrWhiteSpace(personaDto.Nombre))
                     return BadRequest(new { mensaje = "Nombre requerido" });
@@ -136,10 +147,10 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 if (string.IsNullOrWhiteSpace(personaDto.Identificacion))
                     return BadRequest(new { mensaje = "Identificación requerida" });
 
-                // Encriptar la identificación para buscar
+                // Encriptar la identificación
                 var identificacionEncriptada = _encryptionService.Encrypt(personaDto.Identificacion);
 
-                // Verificar si ya existe (comparando encriptado con encriptado)
+                // Verificar si ya existe
                 var existeIdentificacion = await _context.Personas
                     .AnyAsync(p => p.Identificacion == identificacionEncriptada);
 
@@ -149,6 +160,16 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 var empresa = await _context.Empresas.FindAsync(personaDto.EmpresaId);
                 if (empresa == null)
                     return NotFound(new { mensaje = $"Empresa {personaDto.EmpresaId} no encontrada" });
+
+                // 🔥 VALIDACIÓN PARA SUPERVISOR: Solo puede crear personas en su propia empresa
+                var userRol = User.FindFirst("rol")?.Value;
+                var userEmpresaId = GetUserEmpresaId();
+
+                if (userRol == "Supervisor" && userEmpresaId.HasValue)
+                {
+                    if (personaDto.EmpresaId != userEmpresaId.Value)
+                        return Forbid("Los supervisores solo pueden crear personas en su propia empresa");
+                }
 
                 var persona = new Persona
                 {
@@ -163,7 +184,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 _context.Personas.Add(persona);
                 await _context.SaveChangesAsync();
 
-                _logger.LogInformation($"Persona creada: {persona.Id} - {persona.Nombre}");
+                _logger.LogInformation($"Persona creada por {User.Identity?.Name}: {persona.Id} - {persona.Nombre}");
 
                 return CreatedAtAction(nameof(GetPersona), new { id = persona.Id }, new
                 {
@@ -187,12 +208,22 @@ namespace Sistema_de_Verificación_IMEI.Controllers
         {
             try
             {
-                if (!IsAdmin())
-                    return Forbid("Solo los administradores pueden actualizar personas");
+                if (!IsAdminOrSupervisor())
+                    return Forbid("No tienes permiso para actualizar personas");
 
                 var persona = await _context.Personas.FindAsync(id);
                 if (persona == null)
                     return NotFound(new { mensaje = "Persona no encontrada" });
+
+                // 🔥 VALIDACIÓN PARA SUPERVISOR: Solo puede actualizar personas de su empresa
+                var userRol = User.FindFirst("rol")?.Value;
+                var userEmpresaId = GetUserEmpresaId();
+
+                if (userRol == "Supervisor" && userEmpresaId.HasValue)
+                {
+                    if (persona.EmpresaId != userEmpresaId.Value)
+                        return Forbid("No tienes permiso para actualizar personas de otra empresa");
+                }
 
                 // Si cambia la identificación, verificar que no exista
                 if (!string.IsNullOrWhiteSpace(personaDto.Identificacion))
@@ -216,6 +247,13 @@ namespace Sistema_de_Verificación_IMEI.Controllers
 
                 if (personaDto.EmpresaId.HasValue && personaDto.EmpresaId.Value > 0)
                 {
+                    // Supervisor no puede cambiar la empresa
+                    if (userRol == "Supervisor" && userEmpresaId.HasValue)
+                    {
+                        if (personaDto.EmpresaId.Value != userEmpresaId.Value)
+                            return Forbid("Los supervisores no pueden cambiar la empresa de una persona");
+                    }
+
                     var empresa = await _context.Empresas.FindAsync(personaDto.EmpresaId.Value);
                     if (empresa == null)
                         return NotFound(new { mensaje = $"Empresa {personaDto.EmpresaId} no encontrada" });
@@ -249,6 +287,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
         {
             try
             {
+                // Solo Admin puede eliminar personas
                 if (!IsAdmin())
                     return Forbid("Solo los administradores pueden eliminar personas");
 
@@ -279,10 +318,19 @@ namespace Sistema_de_Verificación_IMEI.Controllers
         {
             try
             {
+                var userEmpresaId = GetUserEmpresaId();
+                var userRol = User.FindFirst("rol")?.Value;
                 var identificacionEncriptada = _encryptionService.Encrypt(identificacion);
 
-                var persona = await _context.Personas
-                    .Where(p => p.Identificacion == identificacionEncriptada)
+                IQueryable<Persona> query = _context.Personas.Where(p => p.Identificacion == identificacionEncriptada);
+
+                // Supervisor solo busca en su empresa
+                if (userRol != "Admin" && userEmpresaId.HasValue)
+                {
+                    query = query.Where(p => p.EmpresaId == userEmpresaId.Value);
+                }
+
+                var persona = await query
                     .Include(p => p.Empresa)
                     .FirstOrDefaultAsync();
 
@@ -311,20 +359,28 @@ namespace Sistema_de_Verificación_IMEI.Controllers
         {
             try
             {
+                var userRol = User.FindFirst("rol")?.Value;
+                var userEmpresaId = GetUserEmpresaId();
+
+                // Supervisor solo puede ver su propia empresa
+                if (userRol != "Admin" && userEmpresaId.HasValue)
+                {
+                    if (empresaId != userEmpresaId.Value)
+                        return Forbid("No tienes permiso para ver personas de otra empresa");
+                }
+
                 var personas = await _context.Personas
                     .Where(p => p.EmpresaId == empresaId && p.Activo)
                     .Select(p => new
                     {
                         p.Id,
                         p.Nombre,
-                        // 🔥 IMPORTANTE: Aquí debe desencriptar
                         Identificacion = !string.IsNullOrEmpty(p.Identificacion)
                             ? _encryptionService.Decrypt(p.Identificacion)
                             : string.Empty,
                         p.Telefono,
                         p.Email,
                         p.EmpresaId,
-                        // Campo para mostrar cantidad de dispositivos
                         CantidadDispositivos = p.Dispositivos != null
                             ? p.Dispositivos.Count(d => d.Activo)
                             : 0

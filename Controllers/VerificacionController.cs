@@ -62,7 +62,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
         // POST: api/Verificacion/registrar-dispositivo
         // SOLO Admin pueden registrar dispositivos
         [HttpPost("registrar-dispositivo")]
-        [Authorize(Roles = "Admin")] // ← Solo admins
+        [Authorize(Roles = "Admin, Supervisor")] 
         public async Task<IActionResult> RegistrarDispositivo([FromBody] RegistrarDispositivoDTO registroDto)
         {
             try
@@ -116,7 +116,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
         // POST: api/Verificacion/registrar-persona
         // SOLO Admin pueden registrar personas
         [HttpPost("registrar-persona")]
-        [Authorize(Roles = "Admin")] // ← Solo admins
+        [Authorize(Roles = "Admin, Supervisor")] 
         public async Task<IActionResult> RegistrarPersona([FromBody] RegistrarPersonaDTO personaDto)
         {
             try
