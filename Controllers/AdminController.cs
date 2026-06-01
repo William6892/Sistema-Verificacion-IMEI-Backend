@@ -373,6 +373,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
 
         // GET: api/Admin/dispositivos - Listar dispositivos con IMEI desencriptado (solo para admin)
         [HttpGet("dispositivos")]
+        [Authorize(Roles = "Admin, Supervisor")]
         public async Task<IActionResult> GetDispositivos(
             [FromQuery] int? empresaId = null,
             [FromQuery] bool? activo = null,
@@ -486,6 +487,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
 
         // GET: api/Admin/dispositivos/{id} - Obtener dispositivo por ID (con IMEI desencriptado)
         [HttpGet("dispositivos/{id}")]
+        [Authorize(Roles = "Admin, Supervisor")]
         public async Task<IActionResult> GetDispositivo(int id)
         {
             try
@@ -527,6 +529,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
 
         // GET: api/Admin/dispositivos/persona/{personaId} - Dispositivos por persona
         [HttpGet("dispositivos/persona/{personaId}")]
+        [Authorize(Roles = "Admin, Supervisor")]
         public async Task<IActionResult> GetDispositivosPorPersona(int personaId)
         {
             try
@@ -563,6 +566,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
 
         // GET: api/Admin/verificar-imei/{imei} - Verificar si IMEI existe
         [HttpGet("verificar-imei/{imei}")]
+        [Authorize(Roles = "Admin, Supervisor")]
         public async Task<IActionResult> VerificarIMEI(string imei)
         {
             try
@@ -613,6 +617,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
 
         // PUT: api/Admin/dispositivos/{id} - Actualizar dispositivo
         [HttpPut("dispositivos/{id}")]
+        [Authorize(Roles = "Admin, Supervisor")]
         public async Task<IActionResult> UpdateDispositivo(int id, [FromBody] UpdateDispositivoDTO updateDto)
         {
             try
@@ -659,6 +664,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
 
         // PATCH: api/Admin/dispositivos/{id}/activo - Cambiar estado activo
         [HttpPatch("dispositivos/{id}/activo")]
+        [Authorize(Roles = "Admin, Supervisor")]
         public async Task<IActionResult> ToggleDispositivoActivo(int id, [FromBody] bool activo)
         {
             try
