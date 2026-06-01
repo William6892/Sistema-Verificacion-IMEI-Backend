@@ -135,7 +135,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
         }
 
         // PUT: api/Empresas/{id}
-        // SOLO Admin y SuperAdmin pueden actualizar empresas
+        // SOLO Admin pueden actualizar empresas
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateEmpresa(int id, [FromBody] RegistrarEmpresaDTO empresaDto)

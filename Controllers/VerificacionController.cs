@@ -182,7 +182,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
 
                 // Si no es admin, verificar que está consultando sus propios dispositivos
                 // (esto requeriría relacionar usuarios con personas, por ahora solo admins)
-                if (userRol != "Admin" && userRol != "SuperAdmin")
+                if (userRol != "Admin" && userRol != "Supervisor")
                 {
                     return Forbid("Solo administradores pueden consultar dispositivos de otras personas");
                 }
