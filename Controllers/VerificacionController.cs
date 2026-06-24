@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Sistema_de_Verificación_IMEI.Data;
 using Sistema_de_Verificación_IMEI.DTOs;
 using Sistema_de_Verificación_IMEI.Services;
 
@@ -12,13 +14,19 @@ namespace Sistema_de_Verificación_IMEI.Controllers
     {
         private readonly IVerificacionService _verificacionService;
         private readonly ILogger<VerificacionController> _logger;
+        private readonly ApplicationDbContext _context;
+        private readonly IEncryptionService _encryptionService;
 
         public VerificacionController(
             IVerificacionService verificacionService,
-            ILogger<VerificacionController> logger)
+            ILogger<VerificacionController> logger,
+            ApplicationDbContext context,
+            IEncryptionService encryptionService)
         {
             _verificacionService = verificacionService;
             _logger = logger;
+            _context = context;
+            _encryptionService = encryptionService;
         }
 
         // POST: api/Verificacion/verificar
@@ -244,6 +252,83 @@ namespace Sistema_de_Verificación_IMEI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Error obteniendo personas para empresa ID: {empresaId}");
+                return StatusCode(500, new { mensaje = "Error interno del servidor" });
+            }
+        }
+
+        // GET: api/Verificacion/buscar-dispositivos
+        // Buscar dispositivos por coincidencia parcial de IMEI (abierto a cualquier rol autenticado)
+        [HttpGet("buscar-dispositivos")]
+        public async Task<IActionResult> BuscarDispositivos(
+            [FromQuery] string? search = null,
+            [FromQuery] int page = 1,
+            [FromQuery] int limit = 10)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(search))
+                {
+                    return Ok(new
+                    {
+                        dispositivos = new List<object>(),
+                        total = 0,
+                        page,
+                        limit,
+                        totalPages = 0
+                    });
+                }
+
+                search = search.ToLower();
+
+                var query = _context.Dispositivos
+                    .Include(d => d.Persona)
+                        .ThenInclude(p => p.Empresa)
+                    .AsQueryable();
+
+                // Primero obtenemos todos los dispositivos y filtramos en memoria
+                var dispositivosTemp = await query.ToListAsync();
+
+                // Filtramos desencriptando cada IMEI
+                var dispositivosFiltrados = dispositivosTemp
+                    .Where(d =>
+                        _encryptionService.Decrypt(d.IMEI).ToLower().Contains(search) ||
+                        d.Persona.Nombre.ToLower().Contains(search) ||
+                        (d.Persona.Empresa != null && d.Persona.Empresa.Nombre.ToLower().Contains(search)))
+                    .Skip((page - 1) * limit)
+                    .Take(limit)
+                    .Select(d => new
+                    {
+                        d.Id,
+                        IMEI = _encryptionService.Decrypt(d.IMEI), // Desencriptar
+                        IMEIHash = _encryptionService.GenerateHash(_encryptionService.Decrypt(d.IMEI)),
+                        PersonaId = d.Persona.Id,
+                        PersonaNombre = d.Persona.Nombre,
+                        // Desencriptar la identificación de la persona
+                        PersonaIdentificacion = _encryptionService.Decrypt(d.Persona.Identificacion),
+                        EmpresaId = d.Persona.Empresa?.Id,
+                        EmpresaNombre = d.Persona.Empresa?.Nombre,
+                        d.Activo,
+                        d.FechaRegistro
+                    })
+                    .ToList();
+
+                var total = dispositivosTemp.Count(d =>
+                    _encryptionService.Decrypt(d.IMEI).ToLower().Contains(search) ||
+                    d.Persona.Nombre.ToLower().Contains(search) ||
+                    (d.Persona.Empresa != null && d.Persona.Empresa.Nombre.ToLower().Contains(search)));
+
+                return Ok(new
+                {
+                    dispositivos = dispositivosFiltrados,
+                    total,
+                    page,
+                    limit,
+                    totalPages = (int)Math.Ceiling(total / (double)limit)
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error buscando dispositivos de manera parcial");
                 return StatusCode(500, new { mensaje = "Error interno del servidor" });
             }
         }
