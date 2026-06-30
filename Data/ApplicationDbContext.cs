@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Sistema_de_Verificación_IMEI.Models;
 
 namespace Sistema_de_Verificación_IMEI.Data
@@ -14,6 +14,7 @@ namespace Sistema_de_Verificación_IMEI.Data
         public DbSet<Persona> Personas => Set<Persona>();
         public DbSet<Dispositivo> Dispositivos => Set<Dispositivo>();
         public DbSet<Usuario> Usuarios => Set<Usuario>();
+        public DbSet<HistorialEscaneo> HistorialEscaneos => Set<HistorialEscaneo>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -221,6 +222,50 @@ namespace Sistema_de_Verificación_IMEI.Data
                     .HasForeignKey(u => u.EmpresaId)
                     .HasConstraintName("fk_usuarios_empresa")
                     .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // Configurar HistorialEscaneo
+            modelBuilder.Entity<HistorialEscaneo>(entity =>
+            {
+                entity.ToTable("historial_escaneos");
+                entity.HasKey(h => h.Id);
+
+                entity.Property(h => h.Id)
+                    .HasColumnName("id")
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(h => h.IMEI)
+                    .HasColumnName("imei")
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(h => h.FechaEscaneo)
+                    .HasColumnName("fecha_escaneo")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(h => h.Resultado)
+                    .HasColumnName("resultado")
+                    .IsRequired();
+
+                entity.Property(h => h.UsuarioId)
+                    .HasColumnName("usuario_id")
+                    .IsRequired(false);
+
+                entity.Property(h => h.Username)
+                    .HasColumnName("username")
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(h => h.Detalles)
+                    .HasColumnName("detalles")
+                    .HasMaxLength(500);
+
+                // Relación con Usuario
+                entity.HasOne(h => h.Usuario)
+                    .WithMany()
+                    .HasForeignKey(h => h.UsuarioId)
+                    .HasConstraintName("fk_historial_escaneos_usuario")
+                    .OnDelete(DeleteBehavior.SetNull);
             });
         }
 

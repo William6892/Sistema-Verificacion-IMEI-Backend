@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sistema_de_Verificación_IMEI.Data;
@@ -349,6 +349,33 @@ namespace Sistema_de_Verificación_IMEI.Controllers
         {
             try
             {
+                var totalEscaneos = await _context.HistorialEscaneos.CountAsync();
+                var escaneosExitosos = await _context.HistorialEscaneos.CountAsync(h => h.Resultado);
+                var escaneosFallidos = totalEscaneos - escaneosExitosos;
+
+                var ultimosEscaneos = await _context.HistorialEscaneos
+                    .OrderByDescending(h => h.FechaEscaneo)
+                    .Take(10)
+                    .ToListAsync();
+
+                var historialReciente = ultimosEscaneos.Select(h =>
+                {
+                    string plainImei = _encryptionService.Decrypt(h.IMEI);
+                    string maskedImei = plainImei.Length >= 10
+                        ? plainImei.Substring(0, 6) + new string('*', Math.Max(0, plainImei.Length - 10)) + plainImei.Substring(plainImei.Length - 4)
+                        : plainImei;
+
+                    return new
+                    {
+                        id = h.Id,
+                        imei = maskedImei,
+                        timestamp = h.FechaEscaneo.ToString("yyyy-MM-dd HH:mm:ss"),
+                        resultado = h.Resultado,
+                        username = h.Username,
+                        detalles = h.Detalles
+                    };
+                }).ToList();
+
                 var estadisticas = new
                 {
                     TotalEmpresas = await _context.Empresas.CountAsync(),
@@ -360,7 +387,12 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                     UsuariosPorRol = await _context.Usuarios
                         .GroupBy(u => u.Rol)
                         .Select(g => new { Rol = g.Key, Cantidad = g.Count() })
-                        .ToListAsync()
+                        .ToListAsync(),
+                    
+                    TotalEscaneos = totalEscaneos,
+                    EscaneosExitosos = escaneosExitosos,
+                    EscaneosFallidos = escaneosFallidos,
+                    HistorialReciente = historialReciente
                 };
 
                 return Ok(estadisticas);

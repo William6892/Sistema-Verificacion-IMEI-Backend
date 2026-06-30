@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sistema_de_Verificación_IMEI.Data;
 using Sistema_de_Verificación_IMEI.DTOs;
+using Sistema_de_Verificación_IMEI.Models;
 using Sistema_de_Verificación_IMEI.Services;
 
 namespace Sistema_de_Verificación_IMEI.Controllers
@@ -36,11 +37,13 @@ namespace Sistema_de_Verificación_IMEI.Controllers
         {
             try
             {
-                var userId = User.FindFirst("userId")?.Value;
-                var username = User.Identity?.Name;
+                var userIdStr = User.FindFirst("userId")?.Value;
+                var username = User.FindFirst(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub)?.Value 
+                               ?? User.Identity?.Name 
+                               ?? "Anónimo";
                 var userRol = User.FindFirst("rol")?.Value;
 
-                _logger.LogInformation($"Usuario {username} (ID: {userId}, Rol: {userRol}) verificando IMEI: {request.IMEI}");
+                _logger.LogInformation($"Usuario {username} (ID: {userIdStr}, Rol: {userRol}) verificando IMEI: {request.IMEI}");
 
                 if (string.IsNullOrWhiteSpace(request.IMEI))
                 {
@@ -54,6 +57,35 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 }
 
                 var resultado = await _verificacionService.VerificarIMEIAsync(request.IMEI);
+
+                // Registrar escaneo en la base de datos
+                try
+                {
+                    int? userId = null;
+                    if (int.TryParse(userIdStr, out int parsedId))
+                    {
+                        userId = parsedId;
+                    }
+
+                    var historial = new HistorialEscaneo
+                    {
+                        IMEI = _encryptionService.Encrypt(request.IMEI), // Guardar IMEI encriptado
+                        FechaEscaneo = DateTime.UtcNow,
+                        Resultado = resultado.Valido,
+                        UsuarioId = userId,
+                        Username = username,
+                        Detalles = resultado.Valido 
+                            ? $"Válido - Persona: {resultado.Persona?.Nombre} - Empresa: {resultado.Empresa?.Nombre}" 
+                            : resultado.Mensaje ?? "IMEI no encontrado"
+                    };
+
+                    _context.HistorialEscaneos.Add(historial);
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception dbEx)
+                {
+                    _logger.LogError(dbEx, "Error al registrar el escaneo en el historial de la base de datos");
+                }
 
                 // Log del resultado
                 _logger.LogInformation($"Verificación IMEI {request.IMEI}: {(resultado.Valido ? "VÁLIDO" : "NO VÁLIDO")} - Usuario: {username}");
