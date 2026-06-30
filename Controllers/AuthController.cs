@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Sistema_de_Verificación_IMEI.DTOs;
 using Sistema_de_Verificación_IMEI.Services;
 using System.Security.Claims;
@@ -36,6 +36,18 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 }
 
                 _logger.LogInformation($"Login exitoso para usuario: {loginDto.Username}");
+
+                // Establecer cookie HttpOnly con el Token JWT
+                if (!string.IsNullOrEmpty(resultado.Token))
+                {
+                    Response.Cookies.Append("token", resultado.Token, new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Secure = true, // Requerido para HTTPS y cross-domain con SameSite=None
+                        SameSite = SameSiteMode.None,
+                        Expires = DateTime.UtcNow.AddHours(8)
+                    });
+                }
 
                 return Ok(resultado);
             }
@@ -101,6 +113,19 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                 rol,
                 mensaje = "Token válido"
             });
+        }
+
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("token", new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None
+            });
+            _logger.LogInformation("Sesión cerrada y cookie eliminada.");
+            return Ok(new { mensaje = "Sesión cerrada correctamente" });
         }
     }
 }
