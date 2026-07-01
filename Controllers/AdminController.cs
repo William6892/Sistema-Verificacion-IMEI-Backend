@@ -5,6 +5,7 @@ using Sistema_de_Verificación_IMEI.Data;
 using Sistema_de_Verificación_IMEI.DTOs;
 using Sistema_de_Verificación_IMEI.Models;
 using Sistema_de_Verificación_IMEI.Services;
+using Sistema_de_Verificación_IMEI.Helpers;
 
 namespace Sistema_de_Verificación_IMEI.Controllers
 {
@@ -369,7 +370,7 @@ namespace Sistema_de_Verificación_IMEI.Controllers
                     {
                         id = h.Id,
                         imei = maskedImei,
-                        timestamp = h.FechaEscaneo.ToString("yyyy-MM-dd HH:mm:ss"),
+                        timestamp = ColombiaTimeZoneHelper.ToColombiaTime(h.FechaEscaneo).ToString("yyyy-MM-dd HH:mm:ss"),
                         resultado = h.Resultado,
                         username = h.Username,
                         detalles = h.Detalles

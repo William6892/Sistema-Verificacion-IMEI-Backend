@@ -10,7 +10,11 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // 1. Configuración básica
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new ColombiaDateTimeConverter());
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
